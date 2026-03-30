@@ -1,0 +1,45 @@
+SELECT w.clue, p.name AS witness_name
+FROM witness_statements w
+JOIN person p ON w.witness_id = p.id
+JOIN crime_scene c ON w.crime_scene_id = c.id
+WHERE c.location LIKE '%Coconut Grove%';
+
+SELECT p.name, h.check_in_date
+FROM hotel_checkins h
+JOIN person p ON h.person_id = p.id
+WHERE h.hotel_name = 'The Grand Regency'
+  AND h.room_number = '707';
+
+  SELECT p.name, s.note
+FROM surveillance_records s
+JOIN hotel_checkins h ON s.hotel_checkin_id = h.id
+JOIN person p ON h.person_id = p.id
+WHERE h.hotel_name = 'The Grand Regency'
+  AND h.room_number = '707';
+
+  SELECT p.name, f.confession
+FROM person p
+JOIN final_interviews f ON p.id = f.person_id
+WHERE p.name = 'Antonio Rossi';
+
+SELECT
+    caller.name AS caller_name,
+    receiver.name AS receiver_name,
+    pr.call_date,
+    pr.note
+FROM phone_records pr
+JOIN person caller ON pr.caller_id = caller.id
+JOIN person receiver ON pr.recipient_id = receiver.id
+WHERE caller.name IN ('Antonio Rossi', 'Victor DiMarco')
+   OR receiver.name IN ('Antonio Rossi', 'Victor DiMarco');
+
+   SELECT w.clue
+FROM witness_statements w
+JOIN crime_scene c ON w.crime_scene_id = c.id
+WHERE c.location LIKE '%Coconut Grove%';
+
+SELECT p.name, f.confession
+FROM person p
+JOIN final_interviews f ON p.id = f.person_id
+JOIN vehicle_registry v ON p.id = v.person_id
+WHERE v.car_make LIKE '%Lambo%';

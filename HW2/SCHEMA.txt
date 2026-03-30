@@ -1,0 +1,22 @@
+erDiagram
+    USERS ||--o{ EVENTS : "creates"
+    USERS ||--o{ EVENT_PARTICIPANTS : "attends"
+    EVENTS ||--o{ EVENT_PARTICIPANTS : "includes"
+
+    USERS {
+        integer id PK
+        varchar username
+        varchar email
+    }
+    EVENTS {
+        integer id PK
+        varchar title
+        timestamp start_time
+        timestamp end_time
+        integer owner_id FK
+    }
+    EVENT_PARTICIPANTS {
+        integer event_id FK
+        integer user_id FK
+        varchar status
+    }

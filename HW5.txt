@@ -1,0 +1,50 @@
+1. First Normal Form (1NF)
+
+    Explanation: The table already contains atomic values. To satisfy 1NF, we explicitly define the ID column as the Primary Key.
+
+    Structure: Sales_1NF (ID [PK], Cust_name, Phone, Prod_ID, P_name, Cat, Date, Qty, PricePerUnit, TotalPrice)
+
+2. Second Normal Form (2NF)
+
+    Explanation: The table is already in 2NF. Because our primary key (ID) is a single column, there are no partial dependencies.
+
+    Structure: Sales_2NF (ID [PK], Cust_name, Phone, Prod_ID, P_name, Cat, Date, Qty, PricePerUnit, TotalPrice)
+
+3. Third Normal Form (3NF)
+
+    Explanation: We must remove the derived attribute TotalPrice (Qty * PricePerUnit). We must also resolve transitive dependencies: Phone depends on Cust_name, and P_name, Cat, and PricePerUnit depend on Prod_ID. We split the data into three distinct tables.
+
+Final 3NF Database Structure:
+
+Table 1: Customers
+| Cust_ID [PK] | Cust_name | Phone |
+| :--- | :--- | :--- |
+| C1 | John Doe | 12345678 |
+| C2 | Jane Smith | 98765432 |
+| C3 | Mark Lee | 55577799 |
+| C4 | Emily Clark | 22233344 |
+| C5 | Alex Brown | 66699988 |
+
+Table 2: Products
+| Prod_ID [PK] | P_name | Cat | PricePerUnit |
+| :--- | :--- | :--- | :--- |
+| P101 | Laptop | Electronics | 1000 |
+| P102 | Phone | Electronics | 500 |
+| P103 | Tablet | Electronics | 300 |
+| P104 | Speaker | Accessories | 50 |
+| P105 | Monitor | Electronics | 200 |
+| P106 | Phone | Accessories | 80 |
+
+Table 3: Sales (Transactions)
+| ID [PK] | Cust_ID [FK] | Prod_ID [FK] | Date | Qty |
+| :--- | :--- | :--- | :--- | :--- |
+| 1 | C1 | P101 | 2024-03-01 | 1 |
+| 2 | C2 | P102 | 2024-03-02 | 2 |
+| 3 | C1 | P103 | 2024-03-05 | 1 |
+| 4 | C2 | P101 | 2024-03-06 | 1 |
+| 5 | C3 | P104 | 2024-03-07 | 3 |
+| 6 | C4 | P102 | 2024-03-08 | 1 |
+| 7 | C5 | P105 | 2024-03-09 | 2 |
+| 8 | C3 | P106 | 2024-03-10 | 1 |
+| 9 | C4 | P101 | 2024-03-11 | 1 |
+| 10 | C1 | P104 | 2024-03-12 | 2 |

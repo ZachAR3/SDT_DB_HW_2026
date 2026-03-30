@@ -1,0 +1,11 @@
+MINUS
+-- Returns all employees from Table A that are NOT in Table B
+SELECT employee_id, name FROM department_a
+EXCEPT
+SELECT employee_id, name FROM department_b;
+
+TIMES
+-- Returns all possible combinations of products and colors
+SELECT p.product_name, c.color_name
+FROM products p
+CROSS JOIN colors c;
