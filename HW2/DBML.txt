@@ -1,24 +1,44 @@
 Table users {
-  id integer [primary key]
+  user_id integer [primary key]
   username varchar
   email varchar
+  timezone varchar
   created_at timestamp
 }
 
+Table calendars {
+  calendar_id integer [primary key]
+  user_id integer
+  name varchar
+  color_code varchar
+}
+
 Table events {
-  id integer [primary key]
+  event_id integer [primary key]
+  calendar_id integer
   title varchar
+  description text
   start_time timestamp
   end_time timestamp
-  owner_id integer
+  location varchar
+  is_all_day boolean
 }
 
-Table event_participants {
+Table event_attendees {
   event_id integer
   user_id integer
-  status varchar // e.g., 'going', 'maybe', 'declined'
+  rsvp_status varchar
 }
 
-Ref: events.owner_id > users.id
-Ref: event_participants.event_id > events.id
-Ref: event_participants.user_id > users.id
+Table reminders {
+  reminder_id integer [primary key]
+  event_id integer
+  reminder_type varchar
+  minutes_before integer
+}
+
+Ref: calendars.user_id > users.user_id
+Ref: events.calendar_id > calendars.calendar_id
+Ref: event_attendees.event_id > events.event_id
+Ref: event_attendees.user_id > users.user_id
+Ref: reminders.event_id > events.event_id
