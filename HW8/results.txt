@@ -1,0 +1,9 @@
+Dataset: yellow_tripdata_2024-01.parquet
+Projected CSV: yellow_tripdata_2024-01_small.csv
+Row count in PostgreSQL: 2964624
+Row count in DuckDB: 2964624
+PostgreSQL times (s): 1.6413, 1.6311, 1.6145
+DuckDB times (s): 0.0364, 0.0285, 0.0283
+PostgreSQL average (s): 1.6289
+DuckDB average (s): 0.0311
+DuckDB speedup over PostgreSQL: 52.38x

@@ -1,0 +1,15 @@
+HW8
+
+Row-oriented DB: PostgreSQL
+Column-oriented DB: DuckDB
+Dataset: Yellow Taxi Trip Records, January 2024
+Source page: https://www.nyc.gov/site/tlc/about/tlc-trip-record-data.page
+Downloaded file: yellow_tripdata_2024-01.parquet
+
+I used the same TLC dataset in both databases. The script downloads the parquet file, converts it to a smaller CSV with only the needed columns, starts a temporary PostgreSQL instance, imports the CSV into PostgreSQL and DuckDB, runs the same analytical query, and writes the measured times to results.txt. DuckDB package is needed to run the script.
+
+The imported columns were tpep_pickup_datetime, tpep_dropoff_datetime, passenger_count, trip_distance, fare_amount, total_amount, PULocationID, and DOLocationID. In PostgreSQL I created indexes on tpep_pickup_datetime and pulocationid. DuckDB was used as the column-oriented database.
+
+The query finds, for each pickup hour, the top 3 pickup zones by total revenue. It also calculates trip count, average distance, and average trip duration in minutes.
+
+Both databases had 2,964,624 rows after import. PostgreSQL times were 1.6413 s, 1.6311 s, and 1.6145 s, with average 1.6289 s. DuckDB times were 0.0364 s, 0.0285 s, and 0.0283 s, with average 0.0311 s. DuckDB was about 52.38x faster for this query. This makes sense because the query scans a lot of data and does grouping and aggregation, which works better in a column-oriented database.
